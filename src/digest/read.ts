@@ -7,7 +7,7 @@ type Line = { at: string; job: string; status: RunStatus; owner: string | null; 
 const NIGHT = /^\d{4}-\d{2}-\d{2}$/;
 const STATUSES: readonly string[] = ['ok', 'retry', 'fail'];
 
-function parseLine(text: string): Line | null {
+export function parseLine(text: string): Line | null {
   let v: unknown;
   try {
     v = JSON.parse(text);
