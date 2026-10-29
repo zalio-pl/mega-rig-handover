@@ -14,15 +14,40 @@ in a shell this agent can run.
 2. Draft the split as a table: title · plan section · scope · done when · blocked by.
    One issue per unit of work.
 3. **Stop and show the table to the human.** Publish nothing until they approve it.
-4. Ask the human what every issue here must carry (fields, labels, wording), unless it is
-   already written down in this session or in the repo.
-5. Create each issue in dependency order, so blocked-by can cite real numbers:
+4. Every issue carries the shape below. Ask the human only about anything beyond it.
+5. Create the label `plan:<plan>` once, then each issue in dependency order, so blocked-by can
+   cite real numbers:
 
    ```sh
-   gh issue create --title "<title>" --body-file <tmp.md>
+   gh label create "plan:<plan>"
+   gh issue create --title "<title>" --label "plan:<plan>" --body-file <tmp.md>
    ```
 
 6. Record every issue URL from gh's output (not from memory) and reply with the list.
+
+## Issue shape
+
+Label `plan:<plan>` (the `plan:` key of the plan's frontmatter). The body, in this order; the
+first line is how the reviewer sorts issues:
+
+```md
+Source: plan.md § <n>
+
+## Scope
+<what to build, from that section only>
+
+## Done when
+<the section's "Done when", checkable>
+
+## Blocked by
+<#n, and which part of it; or "None.">
+
+## Suggested model
+<strongest for logic, cheaper for views and tests (AGENTS.md)>
+```
+
+An issue whose "Done when" waits on a person (a reviewer looking, an approval) stays open until
+that person has acted, not until the request is sent.
 
 Closing one, with the closing comment from AGENTS.md:
 
